@@ -12,6 +12,7 @@ import "../../custom-audio-player.css";
 export default function GuessingPage({ setIsGameStarted, setRestartGame, isEnglishOnly }) {
     const [answerSelected, setAnswerSelected] = useState(false);
     const [correctAnswerData, setCorrectAnswerData] = useState(null);
+    const [isArtHintToggled, setIsArtHintToggled] = useState(true);
 
     const filteredSongs = useMemo(() => {
         if (isEnglishOnly) {
@@ -50,13 +51,11 @@ export default function GuessingPage({ setIsGameStarted, setRestartGame, isEngli
         fetchAudio();
     }, [correctAnswer]);
 
-    console.log(correctAlbumCover);
-
     return (
         <div className="bg-blue-950 w-full h-full text-white p-5 flex flex-col items-center justify-center">
             {correctAlbumCover && correctAnswerData?.data?.sourceUrl && (
                 <section className="w-full pb-5 flex items-center justify-center">
-                    <img className="w-2/5 rounded-md" src={`/api/fetch-album-art?albumLink=${correctAlbumCover}`} alt="a random album cover" ></img>
+                    <img className="w-2/5 rounded-md" src={isArtHintToggled ? `/api/fetch-album-art?albumLink=${correctAlbumCover}` : null} alt="a random album cover" ></img>
                 </section>
             )}
 

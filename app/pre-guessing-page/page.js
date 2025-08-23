@@ -33,7 +33,7 @@ export default function PreGuessingPage() {
             )}
 
             {isGameStarted && (
-                <section className="w-1/2">
+                <section className="w-1/2 overflow-auto">
                     <GuessingPage key={gameKey} setIsGameStarted={setIsGameStarted} setRestartGame={() => setGameKey(prev => prev + 1)} isEnglishOnly={isEnglishOnly} />
                 </section>
             )}
