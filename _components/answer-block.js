@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import songs from "../public/song-metadata/songs.json";
+import { useState } from "react";
 
 export default function AnswerBlock({
     answer,
@@ -10,13 +9,6 @@ export default function AnswerBlock({
     onAnswerSelected,
 }) {
     const [currentAnswer, setAnswer] = useState(answer);
-
-    useEffect(() => {
-        if (!answer) {
-            const randomSong = songs[Math.floor(Math.random() * songs.length)];
-            setAnswer(randomSong);
-        }
-    }, [answer]);
 
     const handleClick = () => {
         if (!answerSelected) {
