@@ -8,23 +8,30 @@ import "react-h5-audio-player/lib/styles.css";
 import "../../custom-audio-player.css";
 
 
-export default function GuessingPage({ setIsGameStarted, setRestartGame }) {
+export default function GuessingPage({ setIsGameStarted, setRestartGame, isEnglishOnly }) {
     const [answerSelected, setAnswerSelected] = useState(false);
     const [correctAnswerData, setCorrectAnswerData] = useState(null);
 
+    const filteredSongs = useMemo(() => {
+        if (isEnglishOnly) {
+            return songs.filter((s) => !/[\u4E00-\u9FFF]/.test(s.name));
+        }
+        return songs;
+    }, [isEnglishOnly]);
+
     // Pick a random correct answer
     const correctAnswer = useMemo(() => {
-        return songs[Math.floor(Math.random() * songs.length)];
-    }, []);
+        return filteredSongs[Math.floor(Math.random() * filteredSongs.length)];
+    }, [filteredSongs]);
 
     // Pick 3 wrong answers and shuffle all 4
     const shuffledAnswers = useMemo(() => {
-        const wrongs = songs
+        const wrongs = filteredSongs
             .filter((s) => s.cid !== correctAnswer.cid)
             .sort(() => 0.5 - Math.random())
             .slice(0, 3);
         return [correctAnswer, ...wrongs].sort(() => 0.5 - Math.random());
-    }, [correctAnswer]);
+    }, [correctAnswer, filteredSongs]);
 
     const handleAnswerSelected = () => setAnswerSelected(true);
 
@@ -44,14 +51,14 @@ export default function GuessingPage({ setIsGameStarted, setRestartGame }) {
         <div className="bg-blue-950 w-full h-full text-white p-5 flex flex-col items-center justify-center">
             <section className="w-full">
                 {correctAnswerData?.data?.sourceUrl && (
-                        <AudioPlayer
-                            src={correctAnswerData.data.sourceUrl}
-                            // src={null}
-                            autoPlay
-                            volume={0.6}
-                            showJumpControls={false}
-                            hasDefaultKeyBindings={false}
-                        />
+                    <AudioPlayer
+                        src={correctAnswerData.data.sourceUrl}
+                        // src={null}
+                        autoPlay
+                        volume={0.6}
+                        showJumpControls={false}
+                        hasDefaultKeyBindings={false}
+                    />
                 )}
             </section>
             {correctAnswerData && (
