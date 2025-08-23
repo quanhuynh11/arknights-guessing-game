@@ -3,7 +3,10 @@
 import AnswerBlock from "@/_components/answer-block";
 import { useState, useMemo, useEffect } from "react";
 import songs from "../../public/song-metadata/songs.json";
-import AudioPlayer from 'react-h5-audio-player'
+import AudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
+import "../../custom-audio-player.css";
+
 
 export default function GuessingPage({ setIsGameStarted, setRestartGame }) {
     const [answerSelected, setAnswerSelected] = useState(false);
@@ -39,16 +42,20 @@ export default function GuessingPage({ setIsGameStarted, setRestartGame }) {
 
     return (
         <div className="bg-blue-950 w-full h-full text-white p-5 flex flex-col items-center justify-center">
-            <section className="bg-black w-full h-full flex flex-row items-center gap-4">
-                {correctAnswerData && (
+            <section className="w-full">
+                {correctAnswerData?.data?.sourceUrl && (
                         <AudioPlayer
-                            src={null}
+                            src={correctAnswerData.data.sourceUrl}
+                            // src={null}
+                            autoPlay
+                            volume={0.6}
+                            showJumpControls={false}
+                            hasDefaultKeyBindings={false}
                         />
                 )}
-                <p className="text-lg">Now Playing...</p>
             </section>
             {correctAnswerData && (
-                <section className="grid grid-cols-2 gap-4">
+                <section className="grid grid-cols-2 gap-4 w-full">
                     {shuffledAnswers.map((song) => (
                         <AnswerBlock
                             key={song.cid}

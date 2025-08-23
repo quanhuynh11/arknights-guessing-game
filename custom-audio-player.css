@@ -1,0 +1,18 @@
+.rhap_container {
+  background-color: #1f2937; /* Tailwind gray-800 */
+  border-radius: 1rem;
+}
+
+.rhap_progress-filled {
+  background-color: #6366f1; /* Tailwind indigo-500 */
+}
+
+.rhap_controls button {
+  color: #f3f4f6; /* Tailwind gray-100 */
+}
+
+.rhap_time {
+  color: #f3f4f6; /* Tailwind gray-100 */
+  font-weight: 500; /* optional */
+}
+

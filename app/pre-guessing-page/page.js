@@ -33,7 +33,7 @@ export default function PreGuessingPage() {
             )}
 
             {isGameStarted && (
-                <section>
+                <section className="w-1/2">
                     <GuessingPage key={gameKey} setIsGameStarted={setIsGameStarted} setRestartGame={() => setGameKey(prev => prev + 1)} />
                 </section>
             )}
