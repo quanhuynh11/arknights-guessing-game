@@ -27,7 +27,7 @@ export default function AnswerBlock({
         <div className="flex flex-col items-center justify-center">
             {currentAnswer && (
                 <button
-                    className={`${bgColor} text-white font-bold w-full h-28 rounded text-2xl mt-10 flex items-center justify-center`}
+                    className={`${bgColor} text-white font-bold w-full h-16 rounded text-2xl mt-10 flex items-center justify-center`}
                     onClick={handleClick}
                     disabled={answerSelected}
                 >

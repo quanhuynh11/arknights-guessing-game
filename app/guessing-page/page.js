@@ -3,6 +3,7 @@
 import AnswerBlock from "@/_components/answer-block";
 import { useState, useMemo, useEffect } from "react";
 import songs from "../../public/song-metadata/songs.json";
+import albums from "../../public/song-metadata/albums.json";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import "../../custom-audio-player.css";
@@ -35,6 +36,8 @@ export default function GuessingPage({ setIsGameStarted, setRestartGame, isEngli
 
     const handleAnswerSelected = () => setAnswerSelected(true);
 
+    const correctAlbumCover = albums.find((a) => a.cid === correctAnswer.albumCid).coverUrl;
+
     useEffect(() => {
         async function fetchAudio() {
             const response = await fetch("/api/fetch-audio?songCID=" + correctAnswer.cid);
@@ -47,15 +50,23 @@ export default function GuessingPage({ setIsGameStarted, setRestartGame, isEngli
         fetchAudio();
     }, [correctAnswer]);
 
+    console.log(correctAlbumCover);
+
     return (
         <div className="bg-blue-950 w-full h-full text-white p-5 flex flex-col items-center justify-center">
+            {correctAlbumCover && correctAnswerData?.data?.sourceUrl && (
+                <section className="w-full pb-5 flex items-center justify-center">
+                    <img className="w-2/5 rounded-md" src={`/api/fetch-album-art?albumLink=${correctAlbumCover}`} alt="a random album cover" ></img>
+                </section>
+            )}
+
             <section className="w-full">
                 {correctAnswerData?.data?.sourceUrl && (
                     <AudioPlayer
                         src={correctAnswerData.data.sourceUrl}
                         // src={null}
                         autoPlay
-                        volume={0.6}
+                        volume={0.2}
                         showJumpControls={false}
                         hasDefaultKeyBindings={false}
                     />

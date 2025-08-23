@@ -19,7 +19,7 @@ export default function PreGuessingPage() {
 
     return (
         <section className="bg-blue-950 w-screen h-screen text-white p-5 flex flex-col items-center justify-center">
-            <img className="w-1/8 mb-5" src="/images/rhodes-island.webp" alt="A picture of the arknights rhodes island logo"></img>
+            <img className="w-1/9 mb-5" src="/images/rhodes-island.webp" alt="A picture of the arknights rhodes island logo"></img>
 
             {!isGameStarted && (
                 <section className="flex flex-col items-center justify-center">
